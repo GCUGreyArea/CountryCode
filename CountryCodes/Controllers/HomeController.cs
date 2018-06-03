@@ -1,23 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Newtonsoft.Json;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using CountryCodes.Models;
 using CountryCodes.ViewModels;
-using System.IO;
-using System.Data.Entity.Migrations;
 using CountryCodes.Helper;
-using Quartz;
-
-using CountryCodes.Scheduled;
-using System.Collections.Specialized;
-using Quartz.Impl;
-using System.Web.Hosting;
 
 namespace CountryCodes.Controllers
 {
@@ -29,6 +15,8 @@ namespace CountryCodes.Controllers
         // This is the main controler, and where the JSon data get's pulled down. Ideally it should be in 
         // Some kind of start up routine, then stored in a database where it can be checked for changes, and 
         // rather than downlaoed periodically, downloaded when the data changes in a scheduled thread.
+
+        log4net.ILog logger = log4net.LogManager.GetLogger(typeof(HomeController));
         public async Task<ActionResult> Index()
         {
             // This shouldn't be here (it should be in some kind of "Startup.cs" file). All the start up routines I've found aren't async, 

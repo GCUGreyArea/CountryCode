@@ -38,6 +38,10 @@ namespace CountryCodes
             // Now we need to register it so that it will get called on shutdown.
             HostingEnvironment.RegisterObject(HostigEnv);
 
+            /* Not configured in web.config so not working
+            log4net.Config.XmlConfigurator.Configure();
+            */
+
             // Finally run out background scheduler.
             await RunBackgroundEvents();
         }
@@ -71,12 +75,12 @@ namespace CountryCodes
             // or on Twice a day on Tuesdays, or what have you..
 
             int Interval = Utils.GetDefaultSchedulingValue();
-            // Trigger the job to run now, and then every 40 seconds
+           // Trigger the job to run now, then in n hours -> NOTE: This should be chaged to use a chron type!
             trigger = TriggerBuilder.Create()
               .WithIdentity("SaveCSVFile", "CSVGroup")
               .StartNow()
               .WithSimpleSchedule(x => x
-                  .WithIntervalInMinutes(Interval)
+                  .WithIntervalInHours(Interval)
                   .RepeatForever())
               .Build();
 

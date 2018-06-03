@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace CountryCodes.App_Start
 {
@@ -25,7 +24,7 @@ namespace CountryCodes.App_Start
                       "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/lumin-bootstrap-lumin.css",
+                      "~/Content/lumin-bootstrap.css",
                       "~/Content/site.css"));
         }
 
