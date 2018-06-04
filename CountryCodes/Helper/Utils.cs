@@ -47,6 +47,19 @@ namespace CountryCodes.Helper
             return baseURL;
         }
 
+        public static void CreateOrValidateDir(String path)
+        {
+            // Determine whether the directory exists.
+            if (Directory.Exists(path))
+            {
+                    return;
+            }
+
+            // Try to create the directory.
+            DirectoryInfo di = Directory.CreateDirectory(path);
+        }
+    
+
         // Excecute a remote call o the server to return the JSon object as a list of Contry objects 
         // in the form C->Key C->Name
         public static async Task ExecutRemoteURLCall(string Baseurl, List<Country> countryList)

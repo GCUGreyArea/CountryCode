@@ -14,19 +14,23 @@ namespace CountryCodes.Controllers.File
     {
         // GET: Save
         [HttpPost]
-        public async Task<ActionResult> Save(CountriesViewModel SaveFl)
+        public async Task<ActionResult> Save(CountriesViewModel viewModel)
         {
-            if (SaveFl.FileLocation.ScheduleSave)
+            if (viewModel.FileLocation.ScheduleSave)
             {
                 // All we should need to do is write the new interval to the web.config file 
                 // And the server should restart the app
-                Utils.WriteNewSaveInterval(SaveFl.FileLocation.TimeInHours);
+                Utils.WriteNewSaveInterval(viewModel.FileLocation.TimeInHours);
             }
             else
             {
                 List<Country> countryList = new List<Country>();
 
-                var filePath = System.Web.HttpContext.Current.Server.MapPath(SaveFl.FileLocation.Dir + "\\" + SaveFl.FileLocation.Filename);
+                // Doesn't work when a directory other than root is provided. Not sure why?
+                var path = System.Web.HttpContext.Current.Server.MapPath(viewModel.FileLocation.Dir);
+                Utils.CreateOrValidateDir(path);
+
+                var filePath = System.Web.HttpContext.Current.Server.MapPath(viewModel.FileLocation.Dir + "\\" + viewModel.FileLocation.Filename);
                 var baseURL = Utils.GetURLString();
 
                 await Utils.ExecutRemoteURLCall(baseURL, countryList);
@@ -35,7 +39,7 @@ namespace CountryCodes.Controllers.File
                 Utils.SaveFile(filePath, CSV);
             }
 
-            return View();
+            return View(viewModel.FileLocation);
         }
     }
 }

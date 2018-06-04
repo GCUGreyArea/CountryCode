@@ -30,7 +30,8 @@
             @Html.TextBoxFor(m => m.FileLocation.Dir, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.FileLocation.Dir)
         </div>
-        <!--- Can't get this code to work properly, but its supposed to rewrite the web.config so that the server will restart
+        <!--- Can't get this code to work properly, but iultimagtely it's supposed to rewrite the web.config so that the server will restart, 
+              allowing the service to be restarted. Unfortunately that doesn't seem to happen?
 <div class="form-group">
     /* @Html.LabelFor(m => m.FileLocation.ScheduleSave)
     @Html.CheckBoxFor(m => m.FileLocation.ScheduleSave)
@@ -51,25 +52,24 @@
         <hr />
         <dl class="dl-horizontal"></dl>
         <div class="row">
-        </div>
+            <p></p>
+            <table class="table table-striped table-hover ">
 
-        <p></p>
-        <table class="table table-striped table-hover ">
+                <tr>
+                    <th>Code</th>
+                    <th>Country</th>
+                </tr>
 
-            <tr>
-                <th>Code</th>
-                <th>Country</th>
-            </tr>
-
-            @foreach (var c in Model.countries)
+                @foreach (var c in Model.countries)
         {
             <tr>
                 <td>@c.Code</td>
                 <td>@c.Name</td>
             </tr>
-    }
+}
 
-        </table>
+            </table>
+        </div>
     </div>
    </div>
 
